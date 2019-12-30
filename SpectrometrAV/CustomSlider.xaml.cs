@@ -14,6 +14,7 @@ namespace SpectrometrAV
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+            
         }
     }
 }

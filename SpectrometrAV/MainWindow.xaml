@@ -6,6 +6,65 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="SpectrometrAV.MainWindow"
         Title="SpectrometrAV">
+    
+  <Window.Styles>
+      <Style Selector="TabControl">
+        <Setter Property="Background" Value="White"/>
+      </Style>
+
+      <Style Selector="TabControl WrapPanel">
+        <Setter Property="Background" Value="Orange"/>
+      </Style>
+    
+      <Style Selector="TabItem">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Background" Value="Orange"/>
+        <Setter Property="Foreground" Value="#F0F0F0"/>
+        <Setter Property="Margin" Value="1 1 0 0"/>
+        <Setter Property="Padding" Value="10 4 10 4"/>
+      </Style>
+      <Style Selector="TabItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="DarkOrange"/>
+      </Style>
+
+      <Style Selector="TabItem:focus">
+        <Setter Property="Foreground" Value="#2B579A"/>
+        <Setter Property="Margin" Value="1 1 0 0"/>
+        <Setter Property="Padding" Value="10 4 10 4"/>
+      </Style>
+      <Style Selector="TabItem:focus /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="#f0f0f0"/>
+      </Style>
+
+      <Style Selector="TabItem:selected">
+        <Setter Property="Foreground" Value="#2B579A"/>
+        <Setter Property="Margin" Value="1 2 0 0"/>
+        <Setter Property="Padding" Value="10 4 10 4"/>
+      </Style>
+      <Style Selector="TabItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="#f0f0f0"/>
+        <Setter Property="CornerRadius" Value="3 3 0 0"></Setter>
+      </Style>
+
+    <Style Selector="Button /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="CornerRadius" Value="2"></Setter>
+    </Style>
+    
+    <Style Selector="Button:pointerover">
+      <Setter Property="Background" Value="Orange"/>
+      <Setter Property="Foreground" Value="White"/> 
+    </Style>
+    <Style Selector="Button:click">
+      <Setter Property="Background" Value="DarkOrange"></Setter>
+    </Style>
+    <Style Selector="Button:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="DarkOrange"/>
+    </Style>
+    
+    </Window.Styles>
+  
     <DockPanel LastChildFill="True">
       <Menu DockPanel.Dock="Top" Padding="6 2 0 2" VerticalAlignment="Top" Background="WhiteSmoke">
         <MenuItem Header="Камера">
@@ -38,9 +97,50 @@
           <Canvas Background="LightGray"></Canvas>
         </DockPanel>
         
-        <ScrollViewer Grid.Column="2" Margin="0 0 4 0">
+        <ScrollViewer Grid.Column="2" Background="WhiteSmoke">
           <StackPanel HorizontalAlignment="Stretch">
-            <Expander Header="АОФ" IsExpanded="True">
+            
+            <Border BorderThickness="0 2 0 2" BorderBrush="LightGray" Margin="0 0 0 5">
+              <StackPanel Background="White">
+                <TextBlock Margin="5">Захват кадров</TextBlock>
+                <TabControl>
+                  <TabItem Header="Спектр">
+                    <Grid>
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                      </Grid.ColumnDefinitions>
+                      <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                      </Grid.RowDefinitions>
+                      
+                      <TextBlock Grid.Column="0" TextAlignment="Center">Старт</TextBlock>
+                      <TextBlock Grid.Column="1" TextAlignment="Center">Стоп</TextBlock>
+                      <TextBlock Grid.Column="2" TextAlignment="Center">Шаг</TextBlock>
+
+                      <NumericUpDown Grid.Row="1" Grid.Column="0" Margin="4"/>
+                      <NumericUpDown Grid.Row="1" Grid.Column="1" Margin="4"/>
+                      <NumericUpDown Grid.Row="1" Grid.Column="2" Margin="4"/>
+
+                      <Button Grid.Row="1" Grid.Column="3" Margin="4">Захват</Button>
+                      
+                    </Grid>
+                  </TabItem>
+                  <TabItem Header="Мультичастотный">
+                    <TextBlock>Text2</TextBlock>
+                  </TabItem>
+                  <TabItem Header="Свип">
+                    <TextBlock>Text3</TextBlock>
+                  </TabItem>
+                </TabControl>
+              </StackPanel>
+            </Border>
+
+            <Border BorderBrush="LightGray" BorderThickness="0 0 0 2" Margin="0 0 0 5">
+              <Expander Header="АОФ" IsExpanded="True" Background="White">
               <StackPanel>
                 <UniformGrid Rows="1" Columns="3" Margin="3">
                   <Button Margin="2">Подкл</Button>
@@ -68,7 +168,10 @@
 
               </StackPanel>
             </Expander>
-            <Expander Header="Камера" IsExpanded="True">
+            </Border>
+            
+            <Border BorderBrush="LightGray" BorderThickness="0 0 0 2">
+              <Expander Header="Камера" IsExpanded="True" Background="White" BorderThickness="0 0 0 2" BorderBrush="LightGray">
               <StackPanel>
                 <Grid Margin="4 0 0 0">
                   <Grid.ColumnDefinitions>
@@ -139,14 +242,19 @@
                 </Grid>
               </StackPanel>
             </Expander>
+            </Border>
+            
+            <Button Content="Full ROI" Margin="4"></Button>
           </StackPanel>
         </ScrollViewer>
         
         <DockPanel LastChildFill="True" Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="WhiteSmoke">
           <TextBlock DockPanel.Dock="Top" Margin="4 1 0 1">Лог</TextBlock>
-          <ListBox Margin="2">
-            
-          </ListBox>
+          
+          <Expander DockPanel.Dock="Left" ExpandDirection="Left">
+            <StackPanel Width="300"></StackPanel>
+          </Expander>
+          <ListBox Margin="2"></ListBox>
         </DockPanel>
         
       </Grid>
