@@ -1,0 +1,84 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:my="clr-namespace:SpectrometrAV"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="SpectrometrAV.MainWindow"
+        Title="SpectrometrAV">
+    <DockPanel LastChildFill="True">
+      <Menu DockPanel.Dock="Top" Padding="6 2 0 2" VerticalAlignment="Top" Background="WhiteSmoke">
+        <MenuItem Header="Камера">
+          <MenuItem Header="Плей"></MenuItem>
+          <MenuItem Header="Подключиться"></MenuItem>
+          <MenuItem Header="Отключиться"></MenuItem>
+          <Separator/>
+          <MenuItem Header="Сохранить кадр"></MenuItem>
+        </MenuItem>
+      </Menu>
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="0.7*"/>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="0.3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="0.8*"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="0.3*"/>
+        </Grid.RowDefinitions>
+        
+        <GridSplitter Grid.Column="1" Grid.Row="0" Width="3" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+        <GridSplitter Grid.Row="1" Grid.ColumnSpan="3" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+
+        <Canvas Grid.Column="0" Grid.Row="0">
+          <TextBlock>Левая панель</TextBlock>
+        </Canvas>
+        <ScrollViewer Grid.Column="2" Margin="0 0 4 0">
+          <StackPanel HorizontalAlignment="Stretch">
+            <Expander Header="АОФ" IsExpanded="True">
+              <StackPanel>
+                <UniformGrid Rows="1" Columns="3" Margin="3">
+                  <Button Margin="2">Подкл</Button>
+                  <Button Margin="2">Загр. Dev</Button>
+                  <Button Margin="2">Вкл.Пит</Button>
+                </UniformGrid>
+                <Grid Margin="4 0 0 0">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                  </Grid.ColumnDefinitions>
+                  <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                  </Grid.RowDefinitions>
+                  
+                  <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" TextAlignment="Center">λ, нм:</TextBlock>
+                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="0"></my:CustomSlider>
+                  <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" TextAlignment="Center">f, Hz:</TextBlock>
+                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="1"></my:CustomSlider>
+                  <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" TextAlignment="Center">1/λ , см⁻¹:</TextBlock>
+                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="2"></my:CustomSlider>
+                </Grid>
+
+              </StackPanel>
+            </Expander>
+            <Expander Header="Камера" IsExpanded="True">
+              <TextBlock>tatw</TextBlock>
+            </Expander>
+          </StackPanel>
+        </ScrollViewer>
+        
+        <DockPanel LastChildFill="True" Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="WhiteSmoke">
+          <TextBlock DockPanel.Dock="Top" Margin="4 1 0 1">Лог</TextBlock>
+          <ListBox Margin="2">
+            
+          </ListBox>
+        </DockPanel>
+        
+      </Grid>
+      
+    </DockPanel>
+    
+</Window>
