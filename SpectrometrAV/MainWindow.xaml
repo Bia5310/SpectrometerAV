@@ -31,9 +31,13 @@
         <GridSplitter Grid.Column="1" Grid.Row="0" Width="3" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
         <GridSplitter Grid.Row="1" Grid.ColumnSpan="3" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
 
-        <Canvas Grid.Column="0" Grid.Row="0">
-          <TextBlock>Левая панель</TextBlock>
-        </Canvas>
+        <DockPanel LastChildFill="True" Grid.Column="0" Grid.Row="0">
+          <StackPanel DockPanel.Dock="Bottom" Background="WhiteSmoke">
+            <TextBlock Margin="4">FPS</TextBlock>
+          </StackPanel>
+          <Canvas Background="LightGray"></Canvas>
+        </DockPanel>
+        
         <ScrollViewer Grid.Column="2" Margin="0 0 4 0">
           <StackPanel HorizontalAlignment="Stretch">
             <Expander Header="АОФ" IsExpanded="True">
@@ -65,7 +69,75 @@
               </StackPanel>
             </Expander>
             <Expander Header="Камера" IsExpanded="True">
-              <TextBlock>tatw</TextBlock>
+              <StackPanel>
+                <Grid Margin="4 0 0 0">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                  </Grid.ColumnDefinitions>
+                  <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                  </Grid.RowDefinitions>
+
+                  <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" TextAlignment="Center">Exposure</TextBlock>
+                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="0"></my:CustomSlider>
+                  <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" TextAlignment="Center">Gain</TextBlock>
+                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="1"></my:CustomSlider>
+                  <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" TextAlignment="Center">Gamma</TextBlock>
+                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="2"></my:CustomSlider>
+
+                  <TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" TextAlignment="Center">Width</TextBlock>
+                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="3"></my:CustomSlider>
+                  <TextBlock Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" TextAlignment="Center">Height</TextBlock>
+                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="4"></my:CustomSlider>
+                </Grid>
+
+                <TextBlock Margin="8 4 4 0">ROI</TextBlock>
+                
+                <Grid Margin="4 0 0 0">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="60"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                  </Grid.ColumnDefinitions>
+                  <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                  </Grid.RowDefinitions>
+                  <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" TextAlignment="Center">OffsetX</TextBlock>
+                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="0"></my:CustomSlider>
+                  <TextBlock Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" TextAlignment="Center">Width</TextBlock>
+                  <my:CustomSlider Margin="2" Grid.Column="3" Grid.Row="0"></my:CustomSlider>
+                  
+                  <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" TextAlignment="Center">OffsetY</TextBlock>
+                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="1"></my:CustomSlider>
+                  <TextBlock Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" TextAlignment="Center">Height</TextBlock>
+                  <my:CustomSlider Margin="2" Grid.Column="3" Grid.Row="1"></my:CustomSlider>
+                </Grid>
+
+                <TextBlock Margin="8 4 4 0">Binning</TextBlock>
+
+                <Grid Margin="4 0 0 0">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="20"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                  </Grid.ColumnDefinitions>
+                  <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                  </Grid.RowDefinitions>
+                  <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" TextAlignment="Center">X</TextBlock>
+                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="0"></my:CustomSlider>
+                  <TextBlock Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" TextAlignment="Center">Y</TextBlock>
+                  <my:CustomSlider Margin="2" Grid.Column="3" Grid.Row="0"></my:CustomSlider>
+                </Grid>
+              </StackPanel>
             </Expander>
           </StackPanel>
         </ScrollViewer>
