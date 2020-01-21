@@ -14,9 +14,11 @@
   </ItemGroup>
   <ItemGroup>
     <AvaloniaResource Remove="CustomSlider.xaml" />
+    <AvaloniaResource Remove="ViewportControl.xaml" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="CustomSlider.xaml" />
+    <None Remove="ViewportControl.xaml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.9.0" />
@@ -26,5 +28,18 @@
     <EmbeddedResource Include="CustomSlider.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ViewportControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VimbaCamera\VimbaCamera.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="VimbaNET">
+      <HintPath>C:\Program Files\Allied Vision\Vimba_3.0\VimbaNET\Bin\Win32\VimbaNET.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

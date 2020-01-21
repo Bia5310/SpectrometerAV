@@ -87,14 +87,14 @@
           <RowDefinition Height="0.3*"/>
         </Grid.RowDefinitions>
         
-        <GridSplitter Grid.Column="1" Grid.Row="0" Width="3" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
-        <GridSplitter Grid.Row="1" Grid.ColumnSpan="3" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+        <GridSplitter Grid.Column="1" Grid.Row="0" Width="3" HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="Orange"/>
+        <GridSplitter Grid.Row="1" Grid.ColumnSpan="3" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="Orange"/>
 
         <DockPanel LastChildFill="True" Grid.Column="0" Grid.Row="0">
           <StackPanel DockPanel.Dock="Bottom" Background="WhiteSmoke">
             <TextBlock Margin="4">FPS</TextBlock>
           </StackPanel>
-          <Canvas Background="LightGray"></Canvas>
+          <my:ViewportControl Background="LightGray" x:Name="ViewportControl"></my:ViewportControl>
         </DockPanel>
         
         <ScrollViewer Grid.Column="2" Background="WhiteSmoke">
@@ -115,18 +115,28 @@
                       <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
                       </Grid.RowDefinitions>
                       
                       <TextBlock Grid.Column="0" TextAlignment="Center">Старт</TextBlock>
                       <TextBlock Grid.Column="1" TextAlignment="Center">Стоп</TextBlock>
                       <TextBlock Grid.Column="2" TextAlignment="Center">Шаг</TextBlock>
 
-                      <NumericUpDown Grid.Row="1" Grid.Column="0" Margin="4"/>
-                      <NumericUpDown Grid.Row="1" Grid.Column="1" Margin="4"/>
-                      <NumericUpDown Grid.Row="1" Grid.Column="2" Margin="4"/>
+                      <NumericUpDown Grid.Row="1" Grid.Column="0" Margin="4" Minimum="0" x:Name="Numeric_start"/>
+                      <NumericUpDown Grid.Row="1" Grid.Column="1" Margin="4" Minimum="0" x:Name="Numeric_end"/>
+                      <NumericUpDown Grid.Row="1" Grid.Column="2" Margin="4" Minimum="0" x:Name="Numeric_step"/>
 
-                      <Button Grid.Row="1" Grid.Column="3" Margin="4">Захват</Button>
+                      <Button Grid.Row="1" Grid.Column="3" Margin="4" x:Name="Button_capture">Захват</Button>
                       
+                      <Button Grid.Row="2" Margin="4" x:Name="Button_path">
+                        <TextBlock Text="Путь"/>
+                      </Button>
+                  
+                      <TextBox Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="2" Margin="4" x:Name="textBox_path"/>
+                    
+                      <TextBlock Grid.Row="3" Margin="6" Text="Последняя папка сохранения: " Grid.ColumnSpan="4" x:Name="textBlock_lastolder"/>
+                    
                     </Grid>
                   </TabItem>
                   <TabItem Header="Мультичастотный">
@@ -143,9 +153,9 @@
               <Expander Header="АОФ" IsExpanded="True" Background="White">
               <StackPanel>
                 <UniformGrid Rows="1" Columns="3" Margin="3">
-                  <Button Margin="2">Подкл</Button>
-                  <Button Margin="2">Загр. Dev</Button>
-                  <Button Margin="2">Вкл.Пит</Button>
+                  <Button Margin="2" x:Name="button_connAOF">Подкл</Button>
+                  <Button Margin="2" x:Name="button_loadDev">Загр. Dev</Button>
+                  <Button Margin="2" x:Name="button_power">Вкл.Пит</Button>
                 </UniformGrid>
                 <Grid Margin="4 0 0 0">
                   <Grid.ColumnDefinitions>
@@ -159,11 +169,11 @@
                   </Grid.RowDefinitions>
                   
                   <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" TextAlignment="Center">λ, нм:</TextBlock>
-                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="0"></my:CustomSlider>
+                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="0" x:Name="slider_wavelength"></my:CustomSlider>
                   <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" TextAlignment="Center">f, Hz:</TextBlock>
-                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="1"></my:CustomSlider>
+                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="1" x:Name="slider_frequency"></my:CustomSlider>
                   <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" TextAlignment="Center">1/λ , см⁻¹:</TextBlock>
-                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="2"></my:CustomSlider>
+                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="2" x:Name="slider_wavenumber"></my:CustomSlider>
                 </Grid>
 
               </StackPanel>
@@ -187,16 +197,11 @@
                   </Grid.RowDefinitions>
 
                   <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" TextAlignment="Center">Exposure</TextBlock>
-                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="0"></my:CustomSlider>
+                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="0" x:Name="slider_exposure"></my:CustomSlider>
                   <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" TextAlignment="Center">Gain</TextBlock>
-                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="1"></my:CustomSlider>
+                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="1" x:Name="slider_gain"></my:CustomSlider>
                   <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" TextAlignment="Center">Gamma</TextBlock>
-                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="2"></my:CustomSlider>
-
-                  <TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" TextAlignment="Center">Width</TextBlock>
-                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="3"></my:CustomSlider>
-                  <TextBlock Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" TextAlignment="Center">Height</TextBlock>
-                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="4"></my:CustomSlider>
+                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="2" x:Name="slider_gamma"></my:CustomSlider>
                 </Grid>
 
                 <TextBlock Margin="8 4 4 0">ROI</TextBlock>
@@ -213,14 +218,14 @@
                     <RowDefinition></RowDefinition>
                   </Grid.RowDefinitions>
                   <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" TextAlignment="Center">OffsetX</TextBlock>
-                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="0"></my:CustomSlider>
+                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="0" x:Name="slider_offsetX"></my:CustomSlider>
                   <TextBlock Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" TextAlignment="Center">Width</TextBlock>
-                  <my:CustomSlider Margin="2" Grid.Column="3" Grid.Row="0"></my:CustomSlider>
+                  <my:CustomSlider Margin="2" Grid.Column="3" Grid.Row="0" x:Name="slider_width"></my:CustomSlider>
                   
                   <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" TextAlignment="Center">OffsetY</TextBlock>
-                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="1"></my:CustomSlider>
+                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="1" x:Name="slider_offsetY"></my:CustomSlider>
                   <TextBlock Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" TextAlignment="Center">Height</TextBlock>
-                  <my:CustomSlider Margin="2" Grid.Column="3" Grid.Row="1"></my:CustomSlider>
+                  <my:CustomSlider Margin="2" Grid.Column="3" Grid.Row="1" x:Name="slider_height"></my:CustomSlider>
                 </Grid>
 
                 <TextBlock Margin="8 4 4 0">Binning</TextBlock>
@@ -236,15 +241,15 @@
                     <RowDefinition></RowDefinition>
                   </Grid.RowDefinitions>
                   <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" TextAlignment="Center">X</TextBlock>
-                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="0"></my:CustomSlider>
+                  <my:CustomSlider Margin="2" Grid.Column="1" Grid.Row="0" x:Name="slider_binningX"></my:CustomSlider>
                   <TextBlock Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" TextAlignment="Center">Y</TextBlock>
-                  <my:CustomSlider Margin="2" Grid.Column="3" Grid.Row="0"></my:CustomSlider>
+                  <my:CustomSlider Margin="2" Grid.Column="3" Grid.Row="0" x:Name="slider_binningY"></my:CustomSlider>
                 </Grid>
               </StackPanel>
             </Expander>
             </Border>
             
-            <Button Content="Full ROI" Margin="4"></Button>
+            <Button Content="Full ROI" Margin="4" x:Name="button_fullRoi"></Button>
           </StackPanel>
         </ScrollViewer>
         
@@ -254,7 +259,7 @@
           <Expander DockPanel.Dock="Left" ExpandDirection="Left">
             <StackPanel Width="300"></StackPanel>
           </Expander>
-          <ListBox Margin="2"></ListBox>
+          <ListBox Margin="2" x:Name="ListBox_log"></ListBox>
         </DockPanel>
         
       </Grid>
